@@ -6,8 +6,8 @@ require "db.php"; ?>
 $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
 
 <main>
-    <!DOCTYPE html>
-    <html>
+
+
 
     <head>
         <link rel="stylesheet" href="home.css">
@@ -30,7 +30,12 @@ $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
             </tr>
             <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?= htmlspecialchars($row['name']) ?></td>
+                <td>
+                    <a href="patient.php?id=<?= $row['id'] ?>"><?= htmlspecialchars($row['name']) ?>
+                    </a>
+                </td>
+
+
                 <td><?= $row['birth_date'] ?></td>
                 <td><?= htmlspecialchars($row['birth_place']) ?></td>
             </tr>
@@ -39,10 +44,10 @@ $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
 
     </body>
 
-    </html>
 
 
 
-</main>
 
-<?php require 'footer.php' ?>
+
+
+    <?php require 'footer.php' ?>
