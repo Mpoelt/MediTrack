@@ -10,6 +10,14 @@ $stmt->execute();
 
 $result = $stmt->get_result();
 $patient = $result->fetch_assoc();
+
+$post_sql = "SELECT * FROM posts WHERE patient_id = ? ORDER BY created_at DESC";
+$post_stmt = $conn->prepare($post_sql);
+$post_stmt->bind_param("i", $id);
+$post_stmt->execute();
+
+$post_result = $post_stmt->get_result();
+
 ?>
 
 <body>
@@ -57,24 +65,25 @@ $patient = $result->fetch_assoc();
         <div class="bg-body-tertiary border rounded-3 p-3">
 
             <!-- FORM -->
-            <form>
+            <form action="save_post.php" method="POST">
+                <input type="hidden" name="patient_id" value="<?= $patient['id'] ?>">
                 <div class="mb-3">
                     <label class="form-label">Bejegyzés létrehozása</label>
-                    <textarea class="form-control" rows="3"></textarea>
+                    <textarea class="form-control" name="content" rows="3"></textarea>
                 </div>
-                <button class="btn btn-primary">Mentés</button>
+                <button type="submit" class="btn btn-primary">Mentés</button>
             </form>
 
             <!-- BEJEGYZÉSEK -->
             <div class="mt-4">
-
+                <?php while ($post = $post_result->fetch_assoc()): ?>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <p>Első bejegyzés...</p>
-                        <small class="text-muted">időpont</small>
+                        <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
+                        <small class="text-muted"><?= htmlspecialchars($post['created_at']) ?></small>
                     </div>
                 </div>
-
+                <?php endwhile ?>
             </div>
 
         </div>
