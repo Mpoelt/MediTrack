@@ -1,7 +1,10 @@
-<?php require 'header.php' ?>
+<?php
+require 'header.php';
+require "db.php"; ?>
 
 <?php
 $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
+
 <main>
     <!DOCTYPE html>
     <html>
@@ -25,36 +28,13 @@ $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
                 <th>Születési idő</th>
                 <th>Születési hely</th>
             </tr>
+            <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
+                <td><?= htmlspecialchars($row['name']) ?></td>
+                <td><?= $row['birth_date'] ?></td>
+                <td><?= htmlspecialchars($row['birth_place']) ?></td>
             </tr>
-            <tr>
-                <td>Centro comercial Moctezuma</td>
-                <td>Francisco Chang</td>
-                <td>Mexico</td>
-            </tr>
-            <tr>
-                <td>Ernst Handel</td>
-                <td>Roland Mendel</td>
-                <td>Austria</td>
-            </tr>
-            <tr>
-                <td>Island Trading</td>
-                <td>Helen Bennett</td>
-                <td>UK</td>
-            </tr>
-            <tr>
-                <td>Laughing Bacchus Winecellars</td>
-                <td>Yoshi Tannamuri</td>
-                <td>Canada</td>
-            </tr>
-            <tr>
-                <td>Magazzini Alimentari Riuniti</td>
-                <td>Giovanni Rovelli</td>
-                <td>Italy</td>
-            </tr>
+            <?php endwhile; ?>
         </table>
 
     </body>
