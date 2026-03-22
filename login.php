@@ -7,26 +7,26 @@ require "db.php";
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $email = $_POST['email'] ?? "";
-  $password = $_POST['password'] ?? "";
+    $email = $_POST['email'] ?? "";
+    $password = $_POST['password'] ?? "";
 
-  $sql = "SELECT * FROM users WHERE email = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $email);
-  $stmt->execute();
+    $sql = "SELECT * FROM users WHERE email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
 
-  $result = $stmt->get_result();
-  $user = $result->fetch_assoc();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
 
-  if ($user && password_verify($password, $user["password"])) {
-    $_SESSION["user_id"] = $user["id"];
-    $_SESSION["user_email"] = $user["email"];
+    if ($user && password_verify($password, $user["password"])) {
+        $_SESSION["user_id"] = $user["id"];
+        $_SESSION["user_email"] = $user["email"];
 
-    header("Location: home.php");
-    exit;
-  } else {
-    $error = "Hibás email vagy jelszó.";
-  }
+        header("Location: home.php");
+        exit;
+    } else {
+        $error = "Hibás email vagy jelszó.";
+    }
 }
 
 ?>
@@ -71,14 +71,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             placeholder="Jelszó" required />
                         <label for="floatingPassword">Jelszó</label>
                     </div>
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me" /> Emlékezz rám!
-                        </label>
-                    </div>
+
                     <button class="w-100 btn btn-lg btn-primary" type="submit">
                         Bejelentkezés
                     </button>
+                    <hr class="my-4" />
+                    <div><small class="text-body-secondary">
+                            Nincs még fiókod? <a href="register.php">Regisztráció</a>
+                        </small></div>
                 </form>
             </div>
         </div>

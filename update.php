@@ -15,7 +15,7 @@ $patient = $result->fetch_assoc();
 ?>
 
 <body>
-    <form action="save_patient.php" method="POST" class="container mt-4">
+    <form action="update_patient.php" method="POST" class="container mt-4">
         <input type="hidden" name="id" value="<?= $patient['id'] ?>">
         <div class="row">
 
@@ -58,7 +58,7 @@ $patient = $result->fetch_assoc();
             <div class="col-12 mb-3">
                 <label class="form-label">Diagnózis</label>
                 <textarea class="form-control" name="diagnosis" rows="3"
-                    placeholder="Diagnózis leírása">value="<?= htmlspecialchars($patient['diagnosis']) ?>"</textarea>
+                    placeholder="Diagnózis leírása"><?= htmlspecialchars($patient['diagnosis']) ?></textarea>
             </div>
 
         </div>

@@ -10,11 +10,14 @@ $search = $_GET['search'] ?? '';
 
 <?php
 if (!empty($search)) {
-    $sql = "SELECT * FROM patients WHERE name LIKE ? OR birth_place like ? ORDER BY created_at DESC";
+    $sql = "SELECT * FROM patients WHERE name LIKE ? 
+    OR birth_place like ? 
+    OR birth_date LIKE ?
+    ORDER BY created_at DESC";
 
     $stmt = $conn->prepare($sql);
     $like = "%" . $search . "%";
-    $stmt->bind_param("ss", $like, $like);
+    $stmt->bind_param("sss", $like, $like, $like);
     $stmt->execute();
 
     $result = $stmt->get_result();
@@ -34,7 +37,7 @@ if (!empty($search)) {
 
 <body>
 
-    <h2>Az összes beteg</h2>
+    <h2>Az páciensek listája</h2>
 
     <table class="table table-striped">
         <tr>

@@ -10,7 +10,7 @@ $stmt = $conn->prepare($sql);
 $stmt->bind_param("is", $patient_id, $content);
 
 if ($stmt->execute()) {
-    header("Locaton: patient.php?id=" . $patient_id);
+    header("Location: patient.php?id=" . $patient_id);
     exit;
 } else {
     echo "Hiba: " . $stmt->error;

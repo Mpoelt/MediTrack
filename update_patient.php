@@ -20,7 +20,8 @@ $stmt->bind_param(
     $birth_place,
     $mother_name,
     $address,
-    $diagnosis
+    $diagnosis,
+    $id
 );
 
 if ($stmt->execute()) {
