@@ -1,9 +1,27 @@
 <?php
 require 'header.php';
-require "db.php"; ?>
+require "db.php";
+
+$search = $_GET['search'] ?? '';
+?>
+
+
 
 <?php
-$result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
+if (!empty($search)) {
+    $sql = "SELECT * FROM patients WHERE name LIKE ? OR birth_place like ? ORDER BY created_at DESC";
+
+    $stmt = $conn->prepare($sql);
+    $like = "%" . $search . "%";
+    $stmt->bind_param("ss", $like, $like);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+} else {
+    $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC");
+}
+
+?>
 
 
 
@@ -19,7 +37,12 @@ $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC") ?>
 
     <table class="table table-striped">
         <tr>
-            <th><input type="search" class="form-control" placeholder="Search..." aria-label="Search"></th>
+            <th>
+                <form action="home.php" method="GET" class="d-flex">
+                    <input type="search" name="search" class="form-control" placeholder="Keresés..."
+                        value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                </form>
+            </th>
             <th><a href="create.php" class="btn btn-success">Hozzáadás</a> </th>
             <th><a href="delete.php" class="btn btn-danger">Eltávolítás</a> </th>
         </tr>
