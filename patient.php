@@ -28,7 +28,8 @@ $post_result = $post_stmt->get_result();
                 <div class="container d-flex flex-wrap justify-content-center"> <a href="/"
                         class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none">
                         <span class="fs-4"><?= htmlspecialchars($patient['name']) ?></span> </a>
-                    <button type="button" class="btn btn-success">Szerkesztés</button>
+                    <a href="update.php?id=<?= $patient['id'] ?>" class="btn btn-success">Szerkesztés</a>
+
                 </div>
             </header>
             <div>
@@ -81,6 +82,11 @@ $post_result = $post_stmt->get_result();
                     <div class="card-body">
                         <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
                         <small class="text-muted"><?= htmlspecialchars($post['created_at']) ?></small>
+                        <form action="delete_post.php" method="POST" class="mt-2">
+                            <input type="hidden" name="post_id" value="<?= $post['id'] ?>">
+                            <input type="hidden" name="patient_id" value="<?= $patient['id'] ?>">
+                            <button type="submit" class="btn btn-danger btn-sm">Törlés</button>
+                        </form>
                     </div>
                 </div>
                 <?php endwhile ?>
