@@ -1,4 +1,5 @@
 <?php
+require "auth.php";
 require "db.php"; //kapcslat az adatbázishoz
 
 //Adatok lekérdezése POST-ból

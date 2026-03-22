@@ -1,4 +1,5 @@
 <?php
+require "auth.php";
 require "db.php";
 
 $post_id = $_POST['post_id'];

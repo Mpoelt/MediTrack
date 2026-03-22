@@ -1,4 +1,7 @@
-<?php require "header.php" ?>
+<?php
+require "auth.php";
+require "header.php";
+?>
 
 <body>
     <form action="save_patient.php" method="POST" class="container mt-4">

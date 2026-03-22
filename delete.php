@@ -1,4 +1,6 @@
-<?php require "header.php";
+<?php
+require "auth.php";
+require "header.php";
 require "db.php";
 
 $result = $conn->query("SELECT * FROM patients ORDER BY created_at DESC");
