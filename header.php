@@ -24,5 +24,6 @@
             </li>
             <li class="nav-item"><a href="#" class="nav-link">Naptár</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Rólunk</a></li>
+            <li class="nav-item"><a href="logout.php" class="nav-link">Kijelentkezés</a></li>
         </ul>
     </header>
